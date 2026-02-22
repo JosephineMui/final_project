@@ -8,8 +8,15 @@ HEADERS = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_sto
 def emotion_detector(text_to_analyze):
     payload = {"raw_document": {"text": text_to_analyze}}
     response = requests.post(URL, headers=HEADERS, json=payload)
+    scores = {}
     if response.status_code == 200:
         formatted_response = json.loads(response.text)
-        return formatted_response["emotionPrediction"][0]
+        emotions = formatted_response["emotionPredictions"][0]
+        for emotion, score in emotions["emotion"].items():
+            scores[emotion] = score
+
+        max_key = max(scores, key=scores.get)
+        scores["dominant_emotion"] = max_key
+        return scores
     else:
         return {"error": "Failed to fetch emotion data"}
