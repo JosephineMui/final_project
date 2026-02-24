@@ -4,7 +4,7 @@ from EmotionDetection.emotion_detection import emotion_detector
 app = Flask(__name__)
 
 @app.route('/emotionDetector')
-def emotion_detector():
+def emotion_detector_route():
     text_to_analyze = request.args.get('textToAnalyze')
 
     scores = emotion_detector(text_to_analyze)
