@@ -11,7 +11,13 @@ def emotion_detector_route():
 
     dominant = scores["dominant_emotion"]
     emotions = [f"'{emotion}': {score}" for emotion, score in scores.items() if emotion != "dominant_emotion"]
-    return f"For the given statement, the system response is {', '.join(emotions)}. The dominant emotion is {dominant}."
+    joint_emotions = ", ".join(emotions)
+
+    # Replace the last comma with "and" for better readability
+    if ", " in joint_emotions:
+        last_comma_index = joint_emotions.rfind(", ")
+        joint_emotions = joint_emotions[:last_comma_index] + " and" + joint_emotions[last_comma_index + 1:]
+    return f"For the given statement, the system response is {joint_emotions}. The dominant emotion is {dominant}."
 
 @app.route("/")
 def render_index_page():
