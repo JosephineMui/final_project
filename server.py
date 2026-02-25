@@ -3,11 +3,9 @@ This module sets up a Flask web application that provides an endpoint for emotio
 It defines two routes: 
     1. '/emotionDetector' accepts a text input and returns the detected emotions and their scores
     2. '/' renders the main page of the application. The emotion detection is performed using the 
-        emotion_detector function imported from the EmotionDetection module. 
-        
+        emotion_detector function imported from the EmotionDetection module.   
 The application is designed to run on localhost at port 5000.
 '''
-
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -22,7 +20,6 @@ def emotion_detector_route():
     formatted response with the dominant emotion and its score.
     '''
     text_to_analyze = request.args.get('textToAnalyze')
-
     scores = emotion_detector(text_to_analyze)
 
     # Check if the emotion detection returned an error
