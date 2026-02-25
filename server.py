@@ -9,6 +9,10 @@ def emotion_detector_route():
 
     scores = emotion_detector(text_to_analyze)
 
+    # Check if the emotion detection returned an error
+    if "error" in scores:
+        return scores["error"]
+
     dominant = scores["dominant_emotion"]
     if dominant == "None":
         return "Invalid text! Please try again!" 
