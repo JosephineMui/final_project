@@ -10,6 +10,9 @@ def emotion_detector_route():
     scores = emotion_detector(text_to_analyze)
 
     dominant = scores["dominant_emotion"]
+    if dominant == "None":
+        return "Invalid text! Please try again!" 
+    
     emotions = [f"'{emotion}': {score}" for emotion, score in scores.items() if emotion != "dominant_emotion"]
     joint_emotions = ", ".join(emotions)
 
